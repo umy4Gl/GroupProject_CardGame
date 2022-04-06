@@ -6,20 +6,13 @@ using TMPro;
 
 public class Game
 {
-    public List<Card> EnemyDeck, PlayerDeck,
-                      EnemyHand, PlayerHand,
-                      EnemyField, PlayerField;
+    public List<Card> EnemyDeck, PlayerDeck;
 
     public Game()
     {
         EnemyDeck = GiveDeckCard();
         PlayerDeck = GiveDeckCard();
 
-        EnemyHand = new List<Card>();
-        PlayerHand = new List<Card>();
-
-        EnemyField = new List<Card>();
-        PlayerField = new List<Card>();
     }
 
     List<Card> GiveDeckCard()
@@ -33,9 +26,15 @@ public class Game
 
 public class GameManagerScr : MonoBehaviour
 {
+
     public Game CurrentGame;
     public Transform EnemyHand, PlayerHand;
     public GameObject CardPref;
+
+    public List<CardInfoScr> PlayerHandCards = new List<CardInfoScr>(),
+                             PlayerFieldCards = new List<CardInfoScr>(),
+                             EnemyHandCards = new List<CardInfoScr>(),
+                             EnemyFieldCards = new List<CardInfoScr>();
 
     void Start()
     {
@@ -52,18 +51,28 @@ public class GameManagerScr : MonoBehaviour
             GiveCardToHand(deck, hand);
     }
 
-    void GiveCardToHand(List<Card> deck, Transform hand)
+    public void GiveCardToHand(List<Card> deck, Transform hand)
     {
         Card card = deck[0];
 
         GameObject cardGO = Instantiate(CardPref, hand, false);
 
         if (hand == EnemyHand)
+        {
             cardGO.GetComponent<CardInfoScr>().HideCardInfo(card);
+            EnemyHandCards.Add(cardGO.GetComponent<CardInfoScr>());
+        }
         else
+        {
             cardGO.GetComponent<CardInfoScr>().ShowCardInfo(card);
+            PlayerHandCards.Add(cardGO.GetComponent<CardInfoScr>());
+        }
         deck.RemoveAt(0);
     }
 
+    public void GiveNewCards()
+    {
+        GiveCardToHand(CurrentGame.PlayerDeck, PlayerHand);
+    }
   
 }

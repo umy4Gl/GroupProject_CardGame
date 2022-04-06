@@ -7,7 +7,7 @@ public struct Card
 {
     public string Name;
     public Sprite Logo;
-    public int Mana;
+    public float Mana;
     public int Mnozh;
 
     public Card(string name, string logoPath, int mnozh, int mana)

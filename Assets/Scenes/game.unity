@@ -372,6 +372,10 @@ MonoBehaviour:
   EnemyHand: {fileID: 1290977338}
   PlayerHand: {fileID: 2076080876}
   CardPref: {fileID: 4342482397926149144, guid: ff559a5894eaea54a94303baab37f654, type: 3}
+  PlayerHandCards: []
+  PlayerFieldCards: []
+  EnemyHandCards: []
+  EnemyFieldCards: []
 --- !u!1 &705302915
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,6 +724,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 2
+  PlayerMana: {fileID: 0}
+  ManaCost: 0
+  GameManager: {fileID: 0}
 --- !u!114 &1290977340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -836,6 +843,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 3
+  PlayerMana: {fileID: 0}
+  ManaCost: 0
+  GameManager: {fileID: 0}
 --- !u!114 &1302013575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1118,6 +1128,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 1
+  PlayerMana: {fileID: 135914368}
+  ManaCost: 0
+  GameManager: {fileID: 0}
 --- !u!1 &1940971826
 GameObject:
   m_ObjectHideFlags: 0
@@ -1309,3 +1322,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 0
+  PlayerMana: {fileID: 135914368}
+  ManaCost: 0
+  GameManager: {fileID: 0}

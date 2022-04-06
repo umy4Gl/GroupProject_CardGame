@@ -14,15 +14,28 @@ public enum FieldType
 public class DropPlaceScr : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public FieldType Type;
+    public ManaScr PlayerMana; // ManaScr это место из которого мы берем данные, то есть отдельный тип данных, а  PlayerMana - это переменная, которая после объявления может хранить в себе данные из ManaScr
+    public float ManaCost;
+    public GameManagerScr GameManager;
+   // public CardManagerScr GiveAT;
 
     public void OnDrop(PointerEventData eventData)
     {
         if (Type != FieldType.SELF_FIELD)
-            return;
+            return;  
+
 
         CardMovementScr card = eventData.pointerDrag.GetComponent<CardMovementScr>();
-        if (card)
+
+        ManaCost = eventData.pointerDrag.GetComponent<CardInfoScr>().SelfCard.Mana; //
+
+        if (card && ManaCost*10 <= PlayerMana.ManaAmount)
+        {
             card.DefaultParent = transform;
+            PlayerMana.ReduceMana(true, card.GetComponent<CardInfoScr>().SelfCard.Mana * 10); //??
+          //  GameManager.GiveCardToHand(GameManager.CurrentGame.PlayerDeck, GameManager.PlayerHand);
+        }
+           
     }
 
     public void OnPointerEnter(PointerEventData eventData)
