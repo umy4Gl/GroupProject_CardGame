@@ -17,7 +17,7 @@ public class DropPlaceScr : MonoBehaviour, IDropHandler, IPointerEnterHandler, I
     public ManaScr PlayerMana; // ManaScr это место из которого мы берем данные, то есть отдельный тип данных, а  PlayerMana - это переменная, которая после объявления может хранить в себе данные из ManaScr
     public float ManaCost;
     public GameManagerScr GameManager;
-   // public CardManagerScr GiveAT;
+     int AmountOndeck = 0; //костыль надо фиксить
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -29,18 +29,21 @@ public class DropPlaceScr : MonoBehaviour, IDropHandler, IPointerEnterHandler, I
 
         ManaCost = eventData.pointerDrag.GetComponent<CardInfoScr>().SelfCard.Mana; //
 
-        if (card && ManaCost*10 <= PlayerMana.ManaAmount)
+        
+
+        if (card && ManaCost*10 <= PlayerMana.ManaAmount && AmountOndeck<4) //костыль надо фиксить
         {
             card.DefaultParent = transform;
             PlayerMana.ReduceMana(true, card.GetComponent<CardInfoScr>().SelfCard.Mana * 10); //??
-          //  GameManager.GiveCardToHand(GameManager.CurrentGame.PlayerDeck, GameManager.PlayerHand);
+            GameManager.GiveCardToHand(GameManager.CurrentGame.PlayerDeck, GameManager.PlayerHand); //хз, вроде норм, но потом через GiveCards надо будет делать
+            AmountOndeck++;//костыль надо фиксить
         }
            
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (eventData.pointerDrag == null || Type == FieldType.ENEMY_FIELD || Type == FieldType.ENEMY_HAND)
+        if (eventData.pointerDrag == null || Type == FieldType.ENEMY_FIELD || Type == FieldType.ENEMY_HAND || AmountOndeck>=4) //костыль, надо фиксить
             return;
 
         CardMovementScr card = eventData.pointerDrag.GetComponent<CardMovementScr>();

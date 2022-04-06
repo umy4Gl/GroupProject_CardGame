@@ -73,6 +73,7 @@ public class GameManagerScr : MonoBehaviour
     public void GiveNewCards()
     {
         GiveCardToHand(CurrentGame.PlayerDeck, PlayerHand);
+        GiveCardToHand(CurrentGame.EnemyDeck, EnemyHand);
     }
   
 }
