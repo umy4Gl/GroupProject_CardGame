@@ -10,6 +10,14 @@ public class CardInfoScr : MonoBehaviour
     public Image Logo;
     public TextMeshProUGUI Name;
 
+    public void HideCardInfo(Card card)
+    {
+        SelfCard = card;
+        Logo.sprite = null;
+        //ShowCardInfo(card); // проверка на баги рандомной выдачи карт из колоды
+       Name.text = "";
+    }
+
     public void ShowCardInfo(Card card)
     {
         SelfCard = card;
@@ -21,6 +29,6 @@ public class CardInfoScr : MonoBehaviour
 
     private void Start()
     {
-        ShowCardInfo(CardManager.AllCards[transform.GetSiblingIndex()]);
+       // ShowCardInfo(CardManager.AllCards[transform.GetSiblingIndex()]);
     }
 }
