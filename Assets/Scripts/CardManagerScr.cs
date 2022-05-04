@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 
-public struct Card
+public struct Card //структура для переменных информации карты
 {
-    public string Name;
-    public Sprite Logo;
-    public float Mana;
-    public int Mnozh;
+    public string Name; //имя карты
+    public Sprite Logo; //картинка карты
+    public float Mana; //мана карты
+    public int Mnozh; //множитель карты
 
-    public Card(string name, string logoPath, int mnozh, int mana)
+    public Card(string name, string logoPath, int mnozh, int mana) //функция для определения переменных карты
     {
         Name = name;
         Logo = Resources.Load<Sprite>(logoPath);
@@ -19,7 +20,7 @@ public struct Card
     }
 }
 
-public static class CardManager
+public static class CardManager //класс для определения карт
 {
     public static List<Card> AllCards = new List<Card>();
 }
@@ -27,7 +28,7 @@ public static class CardManager
 public class CardManagerScr : MonoBehaviour
 {
 
-    public void Awake()
+    public void Awake() //конструктор со всеми картами
     {
         CardManager.AllCards.Add(new Card("Povarenok", "Sprites/Cards/Povarenok", 10, 1));
         CardManager.AllCards.Add(new Card("Suchief", "Sprites/Cards/Suchief", 20, 2));

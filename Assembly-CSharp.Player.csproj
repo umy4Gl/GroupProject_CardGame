@@ -57,13 +57,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CardManagerScr.cs" />
+    <Compile Include="Assets\Scripts\BaseManagerScr.cs" />
     <Compile Include="Assets\Scripts\BaseInfoscr.cs" />
     <Compile Include="Assets\Scripts\CardMovementScr.cs" />
     <Compile Include="Assets\Scripts\DropPlaceScr.cs" />
     <Compile Include="Assets\Scripts\CardInfoScr.cs" />
     <Compile Include="Assets\Scripts\GameManagerScr.cs" />
     <Compile Include="Assets\Scripts\ManaScr.cs" />
-    <Compile Include="Assets\Scripts\BaseManagerScr.cs" />
+    <Compile Include="Assets\Scripts\GamePointsScr.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

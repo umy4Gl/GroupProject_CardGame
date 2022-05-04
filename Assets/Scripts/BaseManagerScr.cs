@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct Base
+//здесь вообще все то же самое, что и для карт, но уже с базами
+
+[System.Serializable] 
+public struct Base 
 {
     public string BaseName;
     public int BaseMnozh, PriceToUp;

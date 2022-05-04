@@ -6,11 +6,11 @@ using TMPro;
 
 public class CardInfoScr : MonoBehaviour
 {
-    public Card SelfCard;
-    public Image Logo;
-    public TextMeshProUGUI Name, Mana, Mnozh;
+    public Card SelfCard;//объ€вление переменной новой карты
+    public Image Logo;//переменна€ картинки карты
+    public TextMeshProUGUI Name, Mana, Mnozh;//об€вление переменных информации о карте
 
-    public void HideCardInfo(Card card)
+    public void HideCardInfo(Card card) //функци€ дл€ скрыти€ информаци€ карты
     {
         SelfCard = card;
         Logo.sprite = null;
@@ -20,7 +20,7 @@ public class CardInfoScr : MonoBehaviour
         Mnozh.text = "";
     }
 
-    public void ShowCardInfo(Card card)
+    public void ShowCardInfo(Card card) //функци€ дл€ показа информации о карте
     {
         SelfCard = card;
 
@@ -33,7 +33,7 @@ public class CardInfoScr : MonoBehaviour
     }
 
 
-    private void Start()
+    private void Start() //стара€ ненужна€ функци€, оставил чтобы было
     {
        // ShowCardInfo(CardManager.AllCards[transform.GetSiblingIndex()]);
     }

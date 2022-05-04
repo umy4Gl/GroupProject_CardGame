@@ -37,33 +37,34 @@ public class Game
 public class GameManagerScr : MonoBehaviour
 {
 
-    public Game CurrentGame;
-    public Transform EnemyHand, PlayerHand, PlayerBasePlacement;
-    public GameObject CardPref, BasePref;
+    public Game CurrentGame; //переменная для обозначения сесссии
+    public Transform EnemyHand, PlayerHand, PlayerBasePlacement; //переменные для мест игроков
+    public GameObject CardPref, BasePref; //игровые объекты
 
-    public List<CardInfoScr> PlayerHandCards = new List<CardInfoScr>(),
+    public List<CardInfoScr> PlayerHandCards = new List<CardInfoScr>(), 
                              PlayerFieldCards = new List<CardInfoScr>(),
                              EnemyHandCards = new List<CardInfoScr>(),
-                             EnemyFieldCards = new List<CardInfoScr>();
+                             EnemyFieldCards = new List<CardInfoScr>(); //переменные для новых карт
 
-    public List<BaseInfoscr> PlayerBaseNow = new List<BaseInfoscr>();
-    int k = 0;
+    public List<BaseInfoscr> PlayerBaseNow = new List<BaseInfoscr>(); //переменные для новых баз
+    int k = 0; //счетчик
 
-    void Start()
+    void Start() 
     {
         CurrentGame = new Game();
 
-        GiveHandCards(CurrentGame.EnemyDeck, EnemyHand);
-        GiveHandCards(CurrentGame.PlayerDeck, PlayerHand);
-        SetUpNewBase(CurrentGame.PlayerBases, PlayerBasePlacement);
+        GiveHandCards(CurrentGame.EnemyDeck, EnemyHand); //вызов функции для заполнения руки игрока
+        GiveHandCards(CurrentGame.PlayerDeck, PlayerHand); //вызов функции для заполнения руки игрока
+        SetUpNewBase(CurrentGame.PlayerBases, PlayerBasePlacement); //вызов функции для установки новой базы
     }
 
-    public void SetUpNewBase(List<Base> allBases, Transform currentBase)
+    public void SetUpNewBase(List<Base> allBases, Transform currentBase) //аналогичная функция с базами
     {
 
         if (allBases.Count >= k)
         {
             Base _base = allBases[k];
+
 
             GameObject BaseGo = Instantiate(BasePref, currentBase, false);
 
@@ -80,30 +81,30 @@ public class GameManagerScr : MonoBehaviour
     
     }
 
-    void GiveHandCards(List<Card> deck, Transform hand)
+    void GiveHandCards(List<Card> deck, Transform hand) //функция для заполнения руки игрока 4мя картами
     {
-        int i = 0;
+        int i = 0; 
         while (i++ < 4)
             GiveCardToHand(deck, hand);
     }
 
-    public void GiveCardToHand(List<Card> deck, Transform hand)
+    public void GiveCardToHand(List<Card> deck, Transform hand) //функция для выдачи игроку карты
     {
-        Card card = deck[0];
+        Card card = deck[0]; //взятие карты из деки
 
-        GameObject cardGO = Instantiate(CardPref, hand, false);
+        GameObject cardGO = Instantiate(CardPref, hand, false); //что и куда 
 
-        if (hand == EnemyHand)
+        if (hand == EnemyHand) //проверка какому игроку выдается карта
         {
-            cardGO.GetComponent<CardInfoScr>().HideCardInfo(card);
-            EnemyHandCards.Add(cardGO.GetComponent<CardInfoScr>());
+            cardGO.GetComponent<CardInfoScr>().HideCardInfo(card); //поднятие инфы о первой карте из деки
+            EnemyHandCards.Add(cardGO.GetComponent<CardInfoScr>()); //выдача карты опоненту
         }
         else
         {
-            cardGO.GetComponent<CardInfoScr>().ShowCardInfo(card);
-            PlayerHandCards.Add(cardGO.GetComponent<CardInfoScr>());
+            cardGO.GetComponent<CardInfoScr>().ShowCardInfo(card); //поднятие инфы о первой карте из деки
+            PlayerHandCards.Add(cardGO.GetComponent<CardInfoScr>()); //выдача карты игроку
         }
-        deck.RemoveAt(0);
+        deck.RemoveAt(0); //удаление верхней карты в деке
     }
 
     public void GiveNewCards()

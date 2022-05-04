@@ -1,31 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.EventSystems; //подключение библиотек юнити
 
-public class CardMovementScr : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class CardMovementScr : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler //подключение интерфейсов юнити
 {
-    Camera MainCamera;
-    Vector3 offset;
-    public Transform DefaultParent, DefaultTempCardParent;
-    GameObject TempCardGo;
-    public bool IsDraggable;
+    Camera MainCamera; //объявление главной камеры
+    Vector3 offset; //переменная для отслеживания перемецения
+    public Transform DefaultParent, DefaultTempCardParent; //объявление родителей
+    GameObject TempCardGo; //переменная для обозначения объекта игры
+    public bool IsDraggable; //переменная для проверки на возможность перемещения
    
-    void Awake()
+    void Awake() //функция для объявления главных объектов игры
     {
         MainCamera = Camera.allCameras[0];
         TempCardGo = GameObject.Find("TempCardGO");
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
+    public void OnBeginDrag(PointerEventData eventData) //функция начала движения
     {
-        offset = transform.position - MainCamera.ScreenToWorldPoint(eventData.position);
+        offset = transform.position - MainCamera.ScreenToWorldPoint(eventData.position); //проверка позиции
 
-        DefaultParent = DefaultTempCardParent = transform.parent;
+        DefaultParent = DefaultTempCardParent = transform.parent; //смена родителя
 
-        IsDraggable = DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.SELF_HAND;
+        IsDraggable = DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.SELF_HAND; //присвоение переменной значения
    
-       if (!IsDraggable)
+       if (!IsDraggable) //проверка на возможность поднятия
                 return;
             
 
@@ -33,37 +33,37 @@ public class CardMovementScr : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         TempCardGo.transform.SetParent(DefaultParent);
         TempCardGo.transform.SetSiblingIndex(transform.GetSiblingIndex());
 
-        transform.SetParent(DefaultParent.parent);
+        transform.SetParent(DefaultParent.parent);  //
         GetComponent<CanvasGroup>().blocksRaycasts = false;
         
     }
-    public void OnDrag(PointerEventData eventData)
+    public void OnDrag(PointerEventData eventData) //функция для карты в движении
     {
-        if (!IsDraggable)
+        if (!IsDraggable) //еще раз проверка
             return;
 
-        Vector3 newPos = MainCamera.ScreenToWorldPoint(eventData.position);
-        transform.position = newPos + offset;
+        Vector3 newPos = MainCamera.ScreenToWorldPoint(eventData.position); //движение карты
+        transform.position = newPos + offset; //тоже движение
 
-        if (TempCardGo.transform.parent != DefaultTempCardParent)
-            TempCardGo.transform.SetParent(DefaultTempCardParent);
+        if (TempCardGo.transform.parent != DefaultTempCardParent)//проверка
+            TempCardGo.transform.SetParent(DefaultTempCardParent);//движение фоновой карты
 
-        CheckPosition();
+        CheckPosition();//вызов функции для красивой анимации перетаскивания карты
     }
-    public void OnEndDrag(PointerEventData eventData)
+    public void OnEndDrag(PointerEventData eventData)//функция окончания движения карты
     {
-        if (!IsDraggable)
+        if (!IsDraggable) //и снова проверка
             return;
 
-        transform.SetParent(DefaultParent);
-        GetComponent<CanvasGroup>().blocksRaycasts = true;
+        transform.SetParent(DefaultParent); 
+        GetComponent<CanvasGroup>().blocksRaycasts = true; //прикрепление карты к новой позиции
 
         transform.SetSiblingIndex(TempCardGo.transform.GetSiblingIndex());
-        TempCardGo.transform.SetParent(GameObject.Find("Canvas").transform);
-        TempCardGo.transform.localPosition = new Vector3(1092, 0);
+        TempCardGo.transform.SetParent(GameObject.Find("Canvas").transform); //для всременной карты
+        TempCardGo.transform.localPosition = new Vector3(1092, 0); //временная карта(которая еще фоновая) возврат на место
     }
 
-    void CheckPosition()
+    void CheckPosition() //функция для красивой анимации
     {
         int newIndex = DefaultTempCardParent.childCount;
 

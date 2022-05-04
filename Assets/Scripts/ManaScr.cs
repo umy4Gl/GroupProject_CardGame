@@ -4,34 +4,34 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ManaScr : MonoBehaviour
+public class ManaScr : MonoBehaviour //в этом классе мы делаем шкалу количества маны
 {
-    public Image ManaBar;
-    public float ManaAmount = 0;
-    public float SecondsToFull = 10f;
+    public Image ManaBar; //картинка уровня маны
+    public float ManaAmount = 0; //переменная для кол-ва маны
+    public float SecondsToFull = 10f; //переменная для кол-ва секунд до заполнения шкалы
 
-    void Start()
+    void Start() //функция, которая срабатывает при запуске игры
     {
-        ManaBar.fillAmount = ManaAmount / 100;
+        ManaBar.fillAmount = ManaAmount / 100; //начальное значение маны
         
     }
 
-    void Update()
+    void Update() //функция, которая срабатывает каждый кадр
     { 
 
-        if(ManaAmount < 100)
+        if(ManaAmount < 100) //проверка количества маны
         {
-           ManaAmount += 100 / SecondsToFull * Time.deltaTime;
-            ManaBar.fillAmount = ManaAmount / 100;
+           ManaAmount += 100 / SecondsToFull * Time.deltaTime; //подсчет кол-ва маны
+            ManaBar.fillAmount = ManaAmount / 100; //заполнение шкалы на основании кол-ва маны
         }
      
         
     }
 
-    public void ReduceMana(bool PlayerMana, float _manacost)
+    public void ReduceMana(bool PlayerMana, float _manacost) //функция для вычета маны
     {
-        if (PlayerMana)
-            ManaAmount = Mathf.Clamp(ManaAmount - _manacost, 0, int.MaxValue);
+        if (PlayerMana) //проверка на количество маны
+            ManaAmount = Mathf.Clamp(ManaAmount - _manacost, 0, int.MaxValue); //вычет маны
      // else
      //     ManaAmount = ManaAmount;
     }

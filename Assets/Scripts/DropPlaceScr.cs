@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.EventSystems; //библиотеки юнити
 
-public enum FieldType
+public enum FieldType //тип полей
 {
     SELF_HAND,
     SELF_FIELD,
@@ -11,50 +11,55 @@ public enum FieldType
     ENEMY_FIELD
 }
 
-public class DropPlaceScr : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
+public class DropPlaceScr : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler //подключаем интерфейсы из библиотек юнити
 {
-    public FieldType Type;
+    public FieldType Type; //переменная для пита поля
     public ManaScr PlayerMana; // ManaScr это место из которого мы берем данные, то есть отдельный тип данных, а  PlayerMana - это переменная, которая после объявления может хранить в себе данные из ManaScr
-    public float ManaCost;
-    public GameManagerScr GameManager;
-     int AmountOndeck = 0; //костыль надо фиксить
+    public float ManaCost; //мана стоимость карты 
+    public GameManagerScr GameManager; //переменная типа GamrManagerScr
+    public GamePointsScr MnozhNow; //Переменная Типа GamePointScr
+    int AmountOndeck = 0; //костыль надо фиксить
 
-    public void OnDrop(PointerEventData eventData)
+    public void OnDrop(PointerEventData eventData) //функция срабатывающая в момент поднятия карты
     {
-        if (Type != FieldType.SELF_FIELD)
-            return;  
+        if (Type != FieldType.SELF_FIELD) //проверка на поле в момент поднятия
+            return;
 
-
-        CardMovementScr card = eventData.pointerDrag.GetComponent<CardMovementScr>();
-
-        ManaCost = eventData.pointerDrag.GetComponent<CardInfoScr>().SelfCard.Mana; //
-
+        CardMovementScr card = eventData.pointerDrag.GetComponent<CardMovementScr>(); //переменная для определения движения карты
         
+        ManaCost = eventData.pointerDrag.GetComponent<CardInfoScr>().SelfCard.Mana; //переменная для определения мана стоимости карты
 
-        if (card && ManaCost*10 <= PlayerMana.ManaAmount && AmountOndeck<4) //костыль надо фиксить
+        if(card.DefaultParent != transform) //наглядный if для фикса проблемы с поднятием карты со стола
         {
-            card.DefaultParent = transform;
-            PlayerMana.ReduceMana(true, card.GetComponent<CardInfoScr>().SelfCard.Mana * 10); //??
-            GameManager.GiveCardToHand(GameManager.CurrentGame.PlayerDeck, GameManager.PlayerHand); //хз, вроде норм, но потом через GiveCards надо будет делать
-            AmountOndeck++;//костыль надо фиксить
+            if (card && ManaCost*10 <= PlayerMana.ManaAmount && AmountOndeck<4) //костыль надо фиксить, а так же проверка на наличие необходимого кол-ва маны и возможностью ее поднятия
+                  {
+                      card.DefaultParent = transform; //смена позиции карты
+                      PlayerMana.ReduceMana(true, card.GetComponent<CardInfoScr>().SelfCard.Mana * 10); //вызов функции на уменьшение маны
+                      GameManager.GiveCardToHand(GameManager.CurrentGame.PlayerDeck, GameManager.PlayerHand); //хз, вроде норм, но потом через GiveCards надо будет делать
+                      //Debug.Log(card.GetComponent<CardInfoScr>().SelfCard.Mnozh);
+                     // MnozhNow.SetNewCardMnozh(card.GetComponent<CardInfoScr>().SelfCard.Mnozh);
+                      AmountOndeck++;//костыль надо фиксить
         }
+        }
+
+      
            
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public void OnPointerEnter(PointerEventData eventData) //функция на перетаскивание карты 
     {
-        if (eventData.pointerDrag == null || Type == FieldType.ENEMY_FIELD || Type == FieldType.ENEMY_HAND || AmountOndeck>=4) //костыль, надо фиксить
+        if (eventData.pointerDrag == null || Type == FieldType.ENEMY_FIELD || Type == FieldType.ENEMY_HAND || AmountOndeck>=4) //костыль, надо фиксить, а так же проверка на поля, возможность положить карту не была продемонстрирована
             return;
 
         CardMovementScr card = eventData.pointerDrag.GetComponent<CardMovementScr>();
 
         if (card)
-            card.DefaultTempCardParent = transform;
+            card.DefaultTempCardParent = transform; //временная карта меняет позицию
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public void OnPointerExit(PointerEventData eventData) //функция при отпускании карты
     {
-        if (eventData.pointerDrag == null)
+        if (eventData.pointerDrag == null) //если карту невозможно положить, фон убирается
             return;
 
         CardMovementScr card = eventData.pointerDrag.GetComponent<CardMovementScr>();

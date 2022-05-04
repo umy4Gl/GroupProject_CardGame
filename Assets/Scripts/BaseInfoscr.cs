@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+//здесь вообще все то же самое, что и для карт, но уже с базами
+
 public class BaseInfoscr : MonoBehaviour
 {
     public Base SelfBase;
