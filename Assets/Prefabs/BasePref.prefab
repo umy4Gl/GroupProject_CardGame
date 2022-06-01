@@ -92,8 +92,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -239,10 +239,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ce9a3bea1ecee7418f14aa2e16f5bfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SelfBase:
+    BaseName: 
+    BaseMnozh: 0
+    PriceToUp: 0
+    BaseLogo: {fileID: 0}
   LogoBase: {fileID: 8448310238625920282}
   NameBase: {fileID: 527311700041423070}
   Price: {fileID: 9158321532429482441}
-  BaseMnozh: {fileID: 527311700041423070}
+  BaseMnozh: {fileID: 3398572422222204532}
 --- !u!1 &1630594494828610192
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,8 +340,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

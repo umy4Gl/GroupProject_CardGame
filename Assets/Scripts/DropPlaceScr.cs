@@ -18,7 +18,7 @@ public class DropPlaceScr : MonoBehaviour, IDropHandler, IPointerEnterHandler, I
     public float ManaCost; //мана стоимость карты 
     public GameManagerScr GameManager; //переменная типа GamrManagerScr
     public GamePointsScr MnozhNow; //Переменная Типа GamePointScr
-    int AmountOndeck = 0; //костыль надо фиксить
+    public int AmountOndeck = 0; //костыль надо фиксить
 
     public void OnDrop(PointerEventData eventData) //функция срабатывающая в момент поднятия карты
     {
@@ -36,8 +36,8 @@ public class DropPlaceScr : MonoBehaviour, IDropHandler, IPointerEnterHandler, I
                       card.DefaultParent = transform; //смена позиции карты
                       PlayerMana.ReduceMana(true, card.GetComponent<CardInfoScr>().SelfCard.Mana * 10); //вызов функции на уменьшение маны
                       GameManager.GiveCardToHand(GameManager.CurrentGame.PlayerDeck, GameManager.PlayerHand); //хз, вроде норм, но потом через GiveCards надо будет делать
-                      //Debug.Log(card.GetComponent<CardInfoScr>().SelfCard.Mnozh);
-                     // MnozhNow.SetNewCardMnozh(card.GetComponent<CardInfoScr>().SelfCard.Mnozh);
+                      Debug.Log(card.GetComponent<CardInfoScr>().SelfCard.Mnozh);
+                      MnozhNow.SetNewCardMnozh(card.GetComponent<CardInfoScr>().SelfCard.Mnozh);
                       AmountOndeck++;//костыль надо фиксить
         }
         }

@@ -29,9 +29,10 @@ public class BaseManagerScr : MonoBehaviour
 {
     public void Awake()
     {
-        BaseManager.AllBases.Add(new Base("1", "Sprites/Bases/1", 1, 100));
+        BaseManager.AllBases.Add(new Base("1", "Sprites/Bases/1", 1, 100000));
         BaseManager.AllBases.Add(new Base("2", "Sprites/Bases/2", 2, 200));
-        BaseManager.AllBases.Add(new Base("3", "Sprites/Bases/3", 3, 300));
+        BaseManager.AllBases.Add(new Base("2", "Sprites/Bases/2", 2, 100000));
         BaseManager.AllBases.Add(new Base("4", "Sprites/Bases/4", 4, 400));
+        BaseManager.AllBases.Add(new Base("3", "Sprites/Bases/3", 3, 0));
     }
 }

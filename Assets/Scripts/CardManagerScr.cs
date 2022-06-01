@@ -30,10 +30,10 @@ public class CardManagerScr : MonoBehaviour
 
     public void Awake() //конструктор со всеми картами
     {
-        CardManager.AllCards.Add(new Card("Povarenok", "Sprites/Cards/Povarenok", 10, 1));
-        CardManager.AllCards.Add(new Card("Suchief", "Sprites/Cards/Suchief", 20, 2));
-        CardManager.AllCards.Add(new Card("Chief", "Sprites/Cards/Chief", 30, 3));
-        CardManager.AllCards.Add(new Card("Feya", "Sprites/Cards/Feya", 100, 10));
+        CardManager.AllCards.Add(new Card("Povarenok", "Sprites/Cards/Povarenok", 2, 1));
+        CardManager.AllCards.Add(new Card("Suchief", "Sprites/Cards/Suchief", 3, 2));
+        CardManager.AllCards.Add(new Card("Chief", "Sprites/Cards/Chief", 4, 3));
+        CardManager.AllCards.Add(new Card("Feya", "Sprites/Cards/Feya", 5, 10));
 
     }
 }

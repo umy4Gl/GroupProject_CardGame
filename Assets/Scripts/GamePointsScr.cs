@@ -10,22 +10,31 @@ public class GamePointsScr : MonoBehaviour
 {
     public Base CurrentBase;
     public int _currentBase = 1;
-    public int CurrentMnozh = 1;
-    public int CurrentPoints = 0;
+    public int CurrentMnozh =0;
+    public float CurrentPoints = 0;
     public TextMeshProUGUI _currentPoints;
-  
+    public static GamePointsScr Points;
+
+    private void Start()
+    {
+        Points = this;
+    }
+
     void Update()
     {
         _currentBase = CurrentBase.BaseMnozh;
-        //CurrentPoints = CurrentPoints + 1;
+       // CurrentPoints = CurrentPoints + 1;
         CurrentPoints = CurrentPoints + _currentBase * CurrentMnozh;
+        
         //Debug.Log(CurrentBase.BaseMnozh);
-       // Debug.Log(CurrentMnozh);
+        //Debug.Log(CurrentMnozh);
         _currentPoints.text = CurrentPoints.ToString();
     }
 
    public void SetNewCardMnozh(int _cardMnozh)
     {
-        CurrentMnozh = CurrentMnozh + _cardMnozh;
+        CurrentMnozh += _cardMnozh;
     }
+
+ 
 }

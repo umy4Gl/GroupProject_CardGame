@@ -10,7 +10,10 @@ public class CardMovementScr : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public Transform DefaultParent, DefaultTempCardParent; //объ€вление родителей
     GameObject TempCardGo; //переменна€ дл€ обозначени€ объекта игры
     public bool IsDraggable; //переменна€ дл€ проверки на возможность перемещени€
-   
+    public ManaScr PlayerMana;
+    // public GamePointsScr CostToRm;
+    // public GamePointsScr RmMnozh;
+
     void Awake() //функци€ дл€ объ€влени€ главных объектов игры
     {
         MainCamera = Camera.allCameras[0];
@@ -24,8 +27,18 @@ public class CardMovementScr : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         DefaultParent = DefaultTempCardParent = transform.parent; //смена родител€
 
         IsDraggable = DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.SELF_HAND; //присвоение переменной значени€
-   
-       if (!IsDraggable) //проверка на возможность подн€ти€
+
+        if (DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.SELF_FIELD && GamePointsScr.Points.CurrentPoints >= 10000)
+        {
+            GamePointsScr.Points.CurrentPoints -= 10000;
+            GamePointsScr.Points.CurrentMnozh -= this.GetComponent<CardInfoScr>().SelfCard.Mnozh;
+             DefaultParent.GetComponent<DropPlaceScr>().AmountOndeck--;
+           // PlayerMana.ReduceMana(true, this.GetComponent<CardInfoScr>().SelfCard.Mana * 10);
+            Destroy(this.gameObject);
+        }
+
+
+        if (!IsDraggable) //проверка на возможность подн€ти€
                 return;
             
 
